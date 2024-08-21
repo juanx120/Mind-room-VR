@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5744130714247026742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3770978704992067032}
+  - component: {fileID: 7195683068458278021}
+  - component: {fileID: 5106632106362114118}
+  m_Layer: 0
+  m_Name: Scripts_Bottles_game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3770978704992067032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744130714247026742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.01842518, y: -0.5669023, z: 0.32727402}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7195683068458278021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744130714247026742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b73f20a4166d2948bc683f93b5007c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bottles_game: {fileID: 2526267943197824920, guid: 27abf35acde8f0942bec9e7749c0b543, type: 3}
+  Platforms_game: {fileID: 4686151766494176474, guid: dbc294323a5ae434c953015461706081, type: 3}
+  Initial_positions: {x: -9, y: -5, z: 6}
+  Generate_number: 5
+  bottles_Mechanics: {fileID: 5106632106362114118}
+--- !u!114 &5106632106362114118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5744130714247026742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7838551435f3df24baa839b120a10503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generate_Bottles: {fileID: 7195683068458278021}
+  Platforms_mec_stay: []
+  Platforms_mec_Game: []
+  equal_colors: 
+  suma: 0
