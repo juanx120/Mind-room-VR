@@ -17,6 +17,7 @@ public class Generate_bottles : MonoBehaviour
     private List<int> usedColors; // Lista para rastrear los colores utilizados
     private List<int> usedColors2; // Lista para rastrear los colores utilizados
     public Bottles_mechanics bottles_Mechanics;
+    public Vector3 direction_generation; //Sirve para generar en una dirección los objetos dependiendo de la desición del usuario
 
     void Start()
     {
@@ -30,8 +31,8 @@ public class Generate_bottles : MonoBehaviour
         Generate_number = 5;
         positions_platforms = new Vector3[Generate_number];
         positions_bottles = new Vector3[Generate_number];
-        positions_platforms[0] = new Vector3(Initial_positions.x, Initial_positions.y + Platforms_game.transform.localScale.y / 2, Initial_positions.z);
-        positions_bottles[0] = new Vector3(Initial_positions.x, Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.6f, Initial_positions.z);
+        positions_platforms[0] = new Vector3(Initial_positions.x, Initial_positions.y, Initial_positions.z);
+        positions_bottles[0] = new Vector3(Initial_positions.x, Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.1f, Initial_positions.z);
 
         Colors = new Color[Generate_number];
         Colors[0] = Color.red;
@@ -50,8 +51,8 @@ public class Generate_bottles : MonoBehaviour
         {
             if (i < Generate_number - 1)
             {
-                positions_platforms[i + 1] = new Vector3(positions_platforms[i].x, positions_platforms[i].y, positions_platforms[i].z - 1.0f); // Asigna las posiciones de las plataformas restantes
-                positions_bottles[i + 1] = new Vector3(positions_bottles[i].x, positions_bottles[i].y, positions_bottles[i].z - 1.0f); // Asigna las posiciones de las botellas restantes
+                positions_platforms[i + 1] = new Vector3(positions_platforms[i].x + direction_generation.x, positions_platforms[i].y + direction_generation.y, positions_platforms[i].z + direction_generation.z); // Asigna las posiciones de las plataformas restantes
+                positions_bottles[i + 1] = new Vector3(positions_bottles[i].x + direction_generation.x, positions_bottles[i].y + direction_generation.y, positions_bottles[i].z + direction_generation.z); // Asigna las posiciones de las botellas restantes
             }
 
             GameObject newPlatform = Instantiate(Platforms_game, positions_platforms[i], Quaternion.identity); // Crea un objeto plataforma
@@ -81,10 +82,10 @@ public class Generate_bottles : MonoBehaviour
         Vector3[] newpositions_bottles = new Vector3[Generate_number];
 
         newpositions_platforms[0] = new Vector3(Initial_positions.x,
-                Initial_positions.y + Platforms_game.transform.localScale.y / 2.0f + 5.0f,
+                Initial_positions.y + Platforms_game.transform.localScale.y / 2.0f + 0.61f,
                 Initial_positions.z);
         newpositions_bottles[0] = new Vector3(Initial_positions.x,
-                Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + Platforms_game.transform.localScale.y + 5.1f,
+                Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.65f + Platforms_game.transform.localScale.y,
                 Initial_positions.z);
 
 
@@ -92,8 +93,8 @@ public class Generate_bottles : MonoBehaviour
         {
             if (i < Generate_number - 1)
             {
-                newpositions_platforms[i + 1] = new Vector3(newpositions_platforms[i].x, newpositions_platforms[i].y, newpositions_platforms[i].z - 1.0f); // Asigna las posiciones de las plataformas restantes
-                newpositions_bottles[i + 1] = new Vector3(newpositions_bottles[i].x, newpositions_bottles[i].y, newpositions_bottles[i].z - 1.0f); // Asigna las posiciones de las botellas restantes
+                newpositions_platforms[i + 1] = new Vector3(newpositions_platforms[i].x + direction_generation.x, newpositions_platforms[i].y + direction_generation.y, newpositions_platforms[i].z + direction_generation.z); // Asigna las posiciones de las plataformas restantes
+                newpositions_bottles[i + 1] = new Vector3(newpositions_bottles[i].x + direction_generation.x, newpositions_bottles[i].y + direction_generation.y, newpositions_bottles[i].z + direction_generation.z); // Asigna las posiciones de las botellas restantes
             }
 
             GameObject newPlatform = Instantiate(Platforms_game, newpositions_platforms[i], Quaternion.identity); // Crea un objeto plataforma
