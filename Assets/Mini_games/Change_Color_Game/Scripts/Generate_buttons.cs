@@ -32,7 +32,7 @@ public class Generate_buttons : MonoBehaviour
             GameObject newButton = Instantiate(Buttons_game, positions_buttons[i], Quaternion.identity); // Crea un objeto plataforma
             Renderer buttonRenderer = newButton.GetComponent<Renderer>(); // Toma el renderer del objeto generado
 
-            buttonRenderer.material.color = instance.colours[i];
+            //buttonRenderer.material.color = instance.colours[i];
             newButton.name = "Button_" + (i + 1); // Asigna un nuevo nombre al objeto
         }
     }
