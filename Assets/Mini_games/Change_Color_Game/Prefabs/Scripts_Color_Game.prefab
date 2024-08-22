@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5718534689457403279}
   - component: {fileID: 642635639519664399}
+  - component: {fileID: 6390882831703143624}
   m_Layer: 0
   m_Name: Scripts_Color_Game
   m_TagString: Untagged
@@ -44,9 +45,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d967087eae2a140948491f0ff94fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Buttons_game: {fileID: 8145727456988046495, guid: 3febded5b2c32ae42a93ec085a9e9912,
-    type: 3}
+  Buttons_game: {fileID: 8145727456988046495, guid: 3febded5b2c32ae42a93ec085a9e9912, type: 3}
   Initial_positions: {x: -3, y: 0, z: 2}
+  direction_generation: {x: 0, y: 0, z: 0}
   Generate_number: 5
-  instance: {fileID: 0}
-  instance2: {fileID: 0}
+  mirror: {fileID: 0}
+  timeToWait: 2
+--- !u!114 &6390882831703143624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006513709344730259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7333444317355bc43b49d22226707ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance_generate_Buttons: {fileID: 0}
+  instance_PressButtonEvent: {fileID: 0}

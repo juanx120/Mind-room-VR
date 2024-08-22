@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Bottles_mechanics : MonoBehaviour
@@ -10,6 +11,8 @@ public class Bottles_mechanics : MonoBehaviour
     public List<int> equal_colors = new List<int>();
     [HideInInspector]
     public int suma = 0;
+
+    public TextMeshProUGUI Bottles_results;
 
     void Awake()
     {
@@ -38,6 +41,8 @@ public class Bottles_mechanics : MonoBehaviour
             Compare_colors();
             sumando();
         }
+
+        Bottles_results.text = "Obten un total de 5 aciertos para ganar" + "\nNúmero de Aciertos = " + suma;
     }
 
     public void Compare_colors()

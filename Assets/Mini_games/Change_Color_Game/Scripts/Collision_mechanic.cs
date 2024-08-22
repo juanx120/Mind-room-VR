@@ -1,57 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Collision_mechanic : MonoBehaviour
 {
-    public Generate_buttons instance_generate_Buttons; // Referencia al script que genera los botones
-    private GameObject mirrorScreen; // Objeto de la pantalla que cambia de color
+    public Generate_buttons instance_generate_Buttons;
+    public PressButtonEvent instance_PressButtonEvent; // Referencia al script hace interactuable los botones
+    //private GameObject mirrorScreen; // Objeto de la pantalla que cambia de color
     private Renderer mirrorScreenRenderer;
-    private int Success; // Numero de aciertos
+    [HideInInspector]
+    public int Success; // Numero de aciertos
     private int mistakess; // Numero de equivocaciones
     private float timeWait; // Tiempo de espera para poder aprimir los botones
+    private bool hasInteracted; // Bandera para controlar la ejecución de interaction_ButtonTOMirror
+
+    public TextMeshProUGUI Mirror_results; // Tablero con los resultados de la partida (Asegúrate de que es TextMeshProUGUI para UI)
 
     // Start is called before the first frame update
     void Start()
     {
-        mirrorScreen = GameObject.Find("Pantalla");
-        mirrorScreenRenderer = mirrorScreen.GetComponent<Renderer>(); // Obtén el Renderer de la pantalla
+        //mirrorScreen = GameObject.Find("Pantalla");
+        mirrorScreenRenderer = instance_generate_Buttons.mirror.GetComponent<Renderer>(); // Obtén el Renderer de la pantalla
         Success = 0;
         mistakess = 0;
         timeWait = 1.0f;
+        hasInteracted = false; // Inicializa la bandera en falso
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeWait >= 1.0f)
+        if (timeWait >= 1.0f && !hasInteracted) // Revisa la bandera antes de ejecutar la función
         {
-            StopAllCoroutines();
+            interaction_ButtonTOMirror();
+            StopAllCoroutines(); // Frena todas las corutinas que se estén ejecutando
+            if (instance_PressButtonEvent.press == true)
+            {
+                hasInteracted = true; // Marca que la interacción ya ocurrió
+            }
+            else
+            {
+                hasInteracted = false;
+            }
         }
+
+        // Actualiza el texto del Mirror_results
+        Mirror_results.text = "Número de aciertos = " + Success + "\nNúmero de fallos = " + mistakess;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void interaction_ButtonTOMirror()
     {
-        if (timeWait >= 1.0f)
+        if (instance_PressButtonEvent.press == true)
         {
-            if (collision.gameObject.CompareTag("Hand_VR"))
-            {
-                timeWait = 0.0f;
-                Renderer renderer_button = gameObject.GetComponent<Renderer>(); // Renderer del botón que colisionó
+            timeWait = 0.0f;
+            Renderer renderer_button = instance_PressButtonEvent.Renderer_but; // Renderer del botón que fue oprimido
 
-                // Compara el color del botón con el color de la pantalla
-                if (renderer_button.material.color == mirrorScreenRenderer.material.color)
-                {
-                    Success++;
-                    mostrarsuma(); // Muestra la suma en la consola
-                    StartCoroutine(wait_time());
-                }
-                else
-                {
-                    mistakess++;
-                    mostrarresta();
-                    StartCoroutine(wait_time());
-                }
+            // Compara el color del botón con el color de la pantalla
+            if (renderer_button.material.color == mirrorScreenRenderer.material.color)
+            {
+                Success++;
+                mostrarsuma(); // Muestra la suma en la consola
+                StartCoroutine(wait_time());
+            }
+            else
+            {
+                mistakess++;
+                mostrarresta();
+                StartCoroutine(wait_time());
             }
         }
     }
@@ -60,6 +76,8 @@ public class Collision_mechanic : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         timeWait = 1.0f;
+        hasInteracted = false; // Resetea la bandera después de la espera
+        instance_PressButtonEvent.press = false;
         Debug.Log("Puedes volver a presionar los botones");
     }
 
@@ -69,7 +87,6 @@ public class Collision_mechanic : MonoBehaviour
     }
     public void mostrarresta()
     {
-        Debug.Log("El # de equivocaiones es: " + mistakess);
+        Debug.Log("El # de equivocaciones es: " + mistakess);
     }
 }
-

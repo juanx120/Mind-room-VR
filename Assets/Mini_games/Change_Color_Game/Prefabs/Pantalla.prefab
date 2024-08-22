@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3953663833549443247}
   - component: {fileID: 4754866682376243878}
   - component: {fileID: 7069303420066255237}
-  - component: {fileID: 6820855592945113100}
   m_Layer: 0
   m_Name: Pantalla
   m_TagString: Untagged
@@ -107,18 +106,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6820855592945113100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3688492142866744391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a08796b4880ee40bd8cbc95ef79b1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colours: []
-  generate_Buttons: {fileID: 0}
-  timeToWait: 2
