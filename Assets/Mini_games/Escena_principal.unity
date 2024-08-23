@@ -719,7 +719,7 @@ PrefabInstance:
     - target: {fileID: 8352516590885150823, guid: c4ba35f3a9053964c9aef352810b5567, type: 3}
       propertyPath: disks_prefab
       value: 
-      objectReference: {fileID: 6002081709506393465, guid: c6965448f1a61fa4f9889a92fd4bc4ce, type: 3}
+      objectReference: {fileID: 6002081709506393465, guid: 36535ed9c917eda488957fa7663628bd, type: 3}
     - target: {fileID: 8352516590885150823, guid: c4ba35f3a9053964c9aef352810b5567, type: 3}
       propertyPath: Initial_positions.x
       value: -1.5

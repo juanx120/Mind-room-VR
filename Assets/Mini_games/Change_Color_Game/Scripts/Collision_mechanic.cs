@@ -13,14 +13,14 @@ public class Collision_mechanic : MonoBehaviour
     public int Success; // Numero de aciertos
     private int mistakess; // Numero de equivocaciones
     private float timeWait; // Tiempo de espera para poder aprimir los botones
-    private bool hasInteracted; // Bandera para controlar la ejecución de interaction_ButtonTOMirror
+    [HideInInspector]
+    public bool hasInteracted; // Bandera para controlar la ejecución de interaction_ButtonTOMirror
 
     public TextMeshProUGUI Mirror_results; // Tablero con los resultados de la partida (Asegúrate de que es TextMeshProUGUI para UI)
 
     // Start is called before the first frame update
     void Start()
     {
-        //mirrorScreen = GameObject.Find("Pantalla");
         mirrorScreenRenderer = instance_generate_Buttons.mirror.GetComponent<Renderer>(); // Obtén el Renderer de la pantalla
         Success = 0;
         mistakess = 0;
@@ -31,18 +31,19 @@ public class Collision_mechanic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timeWait >= 1.0f && !hasInteracted) // Revisa la bandera antes de ejecutar la función
+        if (timeWait >= 1.0f && hasInteracted != false) // Revisa la bandera antes de ejecutar la función
         {
             interaction_ButtonTOMirror();
-            StopAllCoroutines(); // Frena todas las corutinas que se estén ejecutando
+            //StopAllCoroutines(); // Frena todas las corutinas que se estén ejecutando
+            /*
             if (instance_PressButtonEvent.press == true)
             {
-                hasInteracted = true; // Marca que la interacción ya ocurrió
+                hasInteracted = false; // Marca que la interacción ya ocurrió
             }
-            else
+            else if(instance_PressButtonEvent.press == false)
             {
-                hasInteracted = false;
-            }
+                hasInteracted = true;
+            }*/
         }
 
         // Actualiza el texto del Mirror_results
@@ -51,22 +52,30 @@ public class Collision_mechanic : MonoBehaviour
 
     public void interaction_ButtonTOMirror()
     {
+        instance_PressButtonEvent.press = true;
         if (instance_PressButtonEvent.press == true)
         {
             timeWait = 0.0f;
             Renderer renderer_button = instance_PressButtonEvent.Renderer_but; // Renderer del botón que fue oprimido
+            Color colorbtn = instance_PressButtonEvent.colorbut;
+            Color colorscreen = mirrorScreenRenderer.material.color;
+            Debug.Log("Color boton " + colorbtn.ToString() + "color pantalla " + colorscreen.ToString());
 
             // Compara el color del botón con el color de la pantalla
-            if (renderer_button.material.color == mirrorScreenRenderer.material.color)
+            if (colorbtn == colorscreen)
             {
                 Success++;
                 mostrarsuma(); // Muestra la suma en la consola
+                hasInteracted = false; // Resetea la bandera después de la espera
+                instance_PressButtonEvent.press = false;
                 StartCoroutine(wait_time());
             }
             else
             {
                 mistakess++;
                 mostrarresta();
+                hasInteracted = false; // Resetea la bandera después de la espera
+                instance_PressButtonEvent.press = false;
                 StartCoroutine(wait_time());
             }
         }
@@ -76,9 +85,8 @@ public class Collision_mechanic : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         timeWait = 1.0f;
-        hasInteracted = false; // Resetea la bandera después de la espera
-        instance_PressButtonEvent.press = false;
         Debug.Log("Puedes volver a presionar los botones");
+        StopAllCoroutines(); // Frena todas las corutinas que se estén ejecutando
     }
 
     public void mostrarsuma()
