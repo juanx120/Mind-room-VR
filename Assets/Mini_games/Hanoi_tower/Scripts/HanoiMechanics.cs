@@ -1,61 +1,83 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HanoiMechanics : MonoBehaviour
 {
-    public Generate_disks generateDisks; // Referencia al script Generate_disks
-    public Button[] towerButtons; // Referencia a los botones
-    private int selectedTower = -1;
+    public List<GameObject> Disk_generates;
 
     void Start()
     {
-        if (generateDisks == null)
-        {
-            Debug.LogError("GenerateDisks no está asignado en el Inspector");
-            return;
-        }
-
-        foreach (Button button in towerButtons)
-        {
-            button.onClick.AddListener(() => SelectTower(button));
-        }
+        Disk_generates = new List<GameObject>();
+        Get_colliders();
     }
 
-    void SelectTower(Button button)
+    // Obtiene los colliders y asigna lógica a ellos
+    public void Get_colliders()
     {
-        int towerIndex = System.Array.IndexOf(towerButtons, button);
-
-        if (selectedTower == -1)
+        for (int i = 0; i < Disk_generates.Count; i++)
         {
-            selectedTower = towerIndex;
-        }
-        else
-        {
-            MoveDisk(selectedTower, towerIndex);
-            selectedTower = -1;
-        }
-    }
+            BoxCollider[] colliders = Disk_generates[i].GetComponents<BoxCollider>();
 
-    void MoveDisk(int fromTower, int toTower)
-    {
-        Transform fromTowerTransform = generateDisks.tower_prefab.transform.GetChild(fromTower);
-        Transform toTowerTransform = generateDisks.tower_prefab.transform.GetChild(toTower);
-
-        if (fromTowerTransform.childCount > 0)
-        {
-            Transform disk = fromTowerTransform.GetChild(fromTowerTransform.childCount - 1);
-
-            if (toTowerTransform.childCount == 0 ||
-                toTowerTransform.GetChild(toTowerTransform.childCount - 1).localScale.x > disk.localScale.x)
+            if (colliders.Length >= 6)
             {
-                disk.SetParent(toTowerTransform);
-                disk.localPosition = new Vector3(0, 0.2f * toTowerTransform.childCount, 0);
+                // Accede al quinto y al sexto BoxCollider (índices 4 y 5 respectivamente)
+                BoxCollider UpCollider = colliders[4]; // Collider superior
+                BoxCollider DownCollider = colliders[5]; // Collider Inferior
+
+                // Asignar el callback para detectar colisiones
+                UpCollider.isTrigger = true; // Asegúrate de que el collider sea un trigger
+                DownCollider.isTrigger = true;
+
+                // Añadir script de colisión si no existe
+                if (Disk_generates[i].GetComponent<DiskCollisionHandler>() == null)
+                {
+                    DiskCollisionHandler handler = Disk_generates[i].AddComponent<DiskCollisionHandler>();
+                    handler.Initialize(this, Disk_generates[i], i, UpCollider, DownCollider);
+                }
             }
             else
             {
-                disk.localPosition = new Vector3(0, 0.2f * fromTowerTransform.childCount, 0); // Volver a la posición original
+                Debug.LogError("El prefab no tiene suficientes BoxColliders.");
             }
         }
     }
+
+    // Lógica para manejar las colisiones y verificar la mecánica
+    public void HandleCollision(GameObject disk, int index, GameObject otherDisk)
+    {
+        int otherIndex = Disk_generates.IndexOf(otherDisk);
+
+        if (otherIndex > index) // Verifica si el disco actual está abajo del otro disco en la lista
+        {
+            Debug.LogError("Error, disco pequeño abajo de disco grande: " + disk.name + " está debajo de " + otherDisk.name);
+        }
+    }
 }
+
+// Script separado para manejar colisiones
+public class DiskCollisionHandler : MonoBehaviour
+{
+    private HanoiMechanics hanoiMechanics;
+    private GameObject disk;
+    private int index;
+    private BoxCollider UpCollider;
+    private BoxCollider DownCollider;
+
+    public void Initialize(HanoiMechanics hanoiMechanics, GameObject disk, int index, BoxCollider UpCollider, BoxCollider DownCollider)
+    {
+        this.hanoiMechanics = hanoiMechanics;
+        this.disk = disk;
+        this.index = index;
+        this.UpCollider = UpCollider;
+        this.DownCollider = DownCollider;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Disk")) // Asumiendo que los discos tienen el tag "Disk"
+        {
+            hanoiMechanics.HandleCollision(disk, index, other.gameObject);
+        }
+    }
+}
+

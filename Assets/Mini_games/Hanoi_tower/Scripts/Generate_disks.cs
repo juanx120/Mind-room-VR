@@ -14,6 +14,8 @@ public class Generate_disks : MonoBehaviour
     private Color[] Colors; // Se le asigna un color a los discos generados
     private Vector3[] Scaless; // Se le cambia la escala a los objetos generados
 
+    public HanoiMechanics instance_HanoiMechanics; // Instancia al Script
+
     void Start()
     {
         generate_disks();
@@ -50,6 +52,7 @@ public class Generate_disks : MonoBehaviour
             }
             newDisk.name = "Disk_" + (i + 1); // Cambiar el nombre del objeto instanciado
             newDisk.transform.localScale = new Vector3(Scaless[i].x, Scaless[i].y, Scaless[i].z); // Cambia la escala del objeto generado
+            instance_HanoiMechanics.Disk_generates.Add(newDisk);
         }
     }
 
