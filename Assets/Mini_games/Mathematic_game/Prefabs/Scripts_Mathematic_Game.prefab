@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6425172182104359056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2870526530821307437}
+  - component: {fileID: 4915067534113837623}
+  - component: {fileID: 2843986717572466858}
+  m_Layer: 0
+  m_Name: Scripts_Mathematic_Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2870526530821307437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6425172182104359056}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4915067534113837623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6425172182104359056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb36ff6cc29f5e4482df72bf6609d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instantiate_mathematic_Mechanics: {fileID: 0}
+  Buttons_generate: {fileID: 4826956971219077389, guid: 9416419a078a7944d8353f5dd7c0218f, type: 3}
+  Initial_positions: {x: -1.5, y: 1.131, z: 0.03}
+  direction_generation: {x: 0, y: 0, z: 0.3}
+  Generate_number: 0
+  Rotate_buttons: {x: 0, y: 90, z: 0}
+  button_start_position: {x: -1.4, y: 1.131, z: 1.3}
+  timeToWait: 2
+--- !u!114 &2843986717572466858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6425172182104359056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0d8770bb32734489a8fb93ef4d81b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  names_buttons: []

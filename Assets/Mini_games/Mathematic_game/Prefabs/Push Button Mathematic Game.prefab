@@ -471,9 +471,9 @@ GameObject:
   - component: {fileID: 5263253957350798158}
   - component: {fileID: 1942778950451253396}
   - component: {fileID: 256746031056010969}
-  - component: {fileID: 6084523324612735693}
+  - component: {fileID: 2575500167242003625}
   m_Layer: 0
-  m_Name: Push Button
+  m_Name: Push Button Mathematic Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -559,7 +559,7 @@ MonoBehaviour:
   m_ClampToMaxDistance: 1
   m_MaxDistance: 0.045
   m_PokeFilter: {fileID: 1942778950451253396}
---- !u!114 &6084523324612735693
+--- !u!114 &2575500167242003625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4826956971219077389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0806b071a9cfe634eaa3e7ab0bef5442, type: 3}
+  m_Script: {fileID: 11500000, guid: 9247042fe4e85364aae5f7933c81812f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -631,8 +631,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  press: 0
-  Renderer_but: {fileID: 0}
 --- !u!1 &5733005262371825030
 GameObject:
   m_ObjectHideFlags: 0
