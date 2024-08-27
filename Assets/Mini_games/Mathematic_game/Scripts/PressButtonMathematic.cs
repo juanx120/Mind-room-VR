@@ -7,7 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class PressButtonMathematic : XRSimpleInteractable
 {
     private Mathematic_mechanics instantiate_mathematic_Mechanics;
-    public string name_object; // Nombre del objeto
 
     void Start()
     {
@@ -33,29 +32,12 @@ public class PressButtonMathematic : XRSimpleInteractable
         string buttonName = pressedButton.name;
         Debug.Log("Botón presionado: " + buttonName);
 
-        // Si necesitas asignar el nombre a `name_object`
-        name_object = buttonName;
-
-        instantiate_mathematic_Mechanics.activate_game(name_object);
-
-
-
-
-
-
-        /*
-        base.OnSelectEntered(args);
-        Renderer_but = transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Renderer>();
-
-        // Obtener el color del botón y asignarlo a colorbut
-        colorbut = Renderer_but.material.color;
-        Debug.Log("Botón presionado, color del botón: " + colorbut.ToString());
-        instance_collision_Mechanic.hasInteracted = true;
-
-        // Comparar el color inmediatamente después de presionar
-        if (instance_collision_Mechanic.timeWait >= 1.0f && instance_collision_Mechanic.hasInteracted != false) // Revisa la bandera antes de ejecutar la función
+        for (int i = 0; i < instantiate_mathematic_Mechanics.names_buttons.Count - 1; i++)
         {
-            instance_collision_Mechanic.CompareButtonColor(colorbut);
-        }*/
+            if (instantiate_mathematic_Mechanics.names_buttons[i] == buttonName)
+            {
+                instantiate_mathematic_Mechanics.activate_game(buttonName, i);
+            }
+        }
     }
 }

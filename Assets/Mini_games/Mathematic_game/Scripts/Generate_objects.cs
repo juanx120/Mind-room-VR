@@ -15,9 +15,6 @@ public class Generate_objects : MonoBehaviour
     public Vector3 Rotate_buttons; // Rotar los botones
     public Vector3 button_start_position; // Posición del botón start
 
-    public float timeToWait = 2.0f; // Tiempo de espera inicial del cambio de color en segundos
-    private int time_mirror; // Esta variable servirá para hacer que la pantalla cambie los colores más rápidos 
-
     // Start is called before the first frame update
     void Start()
     {

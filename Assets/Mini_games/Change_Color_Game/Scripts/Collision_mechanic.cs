@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Collision_mechanic : MonoBehaviour
 {
     public Generate_buttons instance_generate_Buttons;
-    public PressButtonEvent instance_PressButtonEvent; // Referencia al script que hace interactuable los botones
     private Renderer mirrorScreenRenderer;
     [HideInInspector]
     public int Success; // Numero de aciertos
@@ -30,7 +30,7 @@ public class Collision_mechanic : MonoBehaviour
     void Update()
     {
         // Actualiza el texto del Mirror_results
-        Mirror_results.text = "Número de aciertos = " + Success + "\nNúmero de fallos = " + mistakess;
+        Mirror_results.text = $"Número de aciertos = {Success}\nNúmero de fallos = {mistakess}";
     }
 
     // Método para comparar el color del botón con el de la pantalla
