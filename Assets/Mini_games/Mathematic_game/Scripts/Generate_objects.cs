@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Generate_objects : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class Generate_objects : MonoBehaviour
     private Vector3[] positions_buttons; // Posiciones de las plataformas
     public Vector3 Rotate_buttons; // Rotar los botones
     public Vector3 button_start_position; // Posición del botón start
+    private string[] names_text_buttons = new string[5]; // Nombres de las opciones de los botones
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,11 @@ public class Generate_objects : MonoBehaviour
         Generate_number = 4;
         positions_buttons = new Vector3[Generate_number];
         positions_buttons[0] = new Vector3(Initial_positions.x, Initial_positions.y, Initial_positions.z);
+        names_text_buttons[0] = "Opción A";
+        names_text_buttons[1] = "Opción B";
+        names_text_buttons[2] = "Opción C";
+        names_text_buttons[3] = "Opción D";
+        names_text_buttons[4] = "Empezar";
     }
 
     public void Generate_Buttons_generate() // Genera los botones
@@ -43,9 +51,11 @@ public class Generate_objects : MonoBehaviour
             GameObject newButton = Instantiate(Buttons_generate, positions_buttons[i], Quaternion.identity); // Crea un objeto plataforma
             Transform transform_button = newButton.transform;
             Renderer buttonRenderer = transform_button.GetChild(1).GetChild(1).GetChild(0).GetComponent<Renderer>(); // Toma el renderer del objeto generado
+            TextMeshProUGUI options = transform_button.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
 
             buttonRenderer.material.color = Color.yellow;
             transform_button.rotation = Quaternion.Euler(Rotate_buttons);
+            options.text = names_text_buttons[i];
             newButton.name = "Button_Option_" + (i + 1); // Asigna un nuevo nombre al objeto
 
             // Verifica que instantiate_mathematic_Mechanics no sea nulo
@@ -65,9 +75,11 @@ public class Generate_objects : MonoBehaviour
         GameObject newButton = Instantiate(Buttons_generate, button_start_position, Quaternion.identity); // Crea un objeto plataforma
         Transform transform_button = newButton.transform;
         Renderer buttonRenderer = transform_button.GetChild(1).GetChild(1).GetChild(0).GetComponent<Renderer>(); // Toma el renderer del objeto generado
+        TextMeshProUGUI options = transform_button.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
 
         buttonRenderer.material.color = Color.green;
         transform_button.rotation = Quaternion.Euler(Rotate_buttons);
+        options.text = names_text_buttons[4];
         newButton.name = "Button_Start"; // Asigna un nuevo nombre al objeto
 
         // Verifica que instantiate_mathematic_Mechanics no sea nulo

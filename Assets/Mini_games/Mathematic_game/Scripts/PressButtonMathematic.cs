@@ -37,6 +37,7 @@ public class PressButtonMathematic : XRSimpleInteractable
             if (instantiate_mathematic_Mechanics.names_buttons[i] == buttonName)
             {
                 instantiate_mathematic_Mechanics.activate_game(buttonName, i);
+                Debug.Log($"Nombre del botón enviado: {buttonName}\nEn la posición: {i}");
             }
         }
     }

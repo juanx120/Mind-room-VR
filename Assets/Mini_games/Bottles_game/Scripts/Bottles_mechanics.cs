@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bottles_mechanics : MonoBehaviour
 {
+    [HideInInspector]
     public Generate_bottles generate_Bottles;
     public List<GameObject> Platforms_mec_stay = new List<GameObject>();
     public List<GameObject> Platforms_mec_Game = new List<GameObject>();
@@ -14,6 +15,14 @@ public class Bottles_mechanics : MonoBehaviour
 
     public TextMeshProUGUI Bottles_results;
 
+    [HideInInspector]
+    public Victory_games instance_victory_Games;
+
+    void Start()
+    {
+        generate_Bottles = FindObjectOfType<Generate_bottles>();
+        instance_victory_Games = FindAnyObjectByType<Victory_games>();
+    }
     void Awake()
     {
         SetupEqualColors();
@@ -42,7 +51,7 @@ public class Bottles_mechanics : MonoBehaviour
             sumando();
         }
 
-        Bottles_results.text = "Obten un total de 5 aciertos para ganar" + "\nNúmero de Aciertos = " + suma;
+        Bottles_results.text = $"Obten un total de 5 aciertos para ganar\nNúmero de Aciertos = {suma}";
     }
 
     public void Compare_colors()

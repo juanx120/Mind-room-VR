@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Collision_mechanic : MonoBehaviour
 {
+    [HideInInspector]
     public Generate_buttons instance_generate_Buttons;
     private Renderer mirrorScreenRenderer;
     [HideInInspector]
@@ -18,9 +19,14 @@ public class Collision_mechanic : MonoBehaviour
 
     public TextMeshProUGUI Mirror_results; // Tablero con los resultados de la partida
 
+    [HideInInspector]
+    public Victory_games instance_victory_Games;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance_generate_Buttons = FindAnyObjectByType<Generate_buttons>();
+        instance_victory_Games = FindAnyObjectByType<Victory_games>();
         mirrorScreenRenderer = instance_generate_Buttons.mirror.GetComponent<Renderer>(); // Obtén el Renderer de la pantalla
         Success = 0;
         mistakess = 0;
@@ -30,7 +36,7 @@ public class Collision_mechanic : MonoBehaviour
     void Update()
     {
         // Actualiza el texto del Mirror_results
-        Mirror_results.text = $"Número de aciertos = {Success}\nNúmero de fallos = {mistakess}";
+        Mirror_results.text = $"Obten un total de 10 aciertos para ganar\nNúmero de aciertos = {Success}\nNúmero de fallos = {mistakess}";
     }
 
     // Método para comparar el color del botón con el de la pantalla

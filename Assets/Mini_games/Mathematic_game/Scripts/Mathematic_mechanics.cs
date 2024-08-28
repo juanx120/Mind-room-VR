@@ -8,25 +8,27 @@ using Unity.VisualScripting;
 public class Mathematic_mechanics : MonoBehaviour
 {
     public List<string> names_buttons = new List<string>();
-    private List<int> operations_matematics;
+    [SerializeField]
     private bool activate; // Activa el juego
     private int correctAnswer; // Almacena la respuesta correcta
-    private int score; // Contador de respuestas correctas
-    private int mistakes; // Contador de respuestas incorrectas
+    [HideInInspector]
+    public int score; // Contador de respuestas correctas
+    [HideInInspector]
+    public int mistakes; // Contador de respuestas incorrectas
     public TextMeshProUGUI Questions; // Genera la pregunta en la pantalla
     public TextMeshProUGUI Mirror_results; // Texto que muestra los resultados
     public TextMeshProUGUI TimerText; // Texto del temporizador
 
+    [HideInInspector]
+    public Victory_games instance_victory_Games;
+
     // Start is called before the first frame update
     void Start()
     {
+        instance_victory_Games = FindAnyObjectByType<Victory_games>();
         activate = false;
         score = 0;
         mistakes = 0;
-        for (int i = 0; i < names_buttons.Count - 1; i++)
-        {
-            operations_matematics[i] = i + 1;
-        }
     }
 
     // Activa el juego
@@ -41,10 +43,10 @@ public class Mathematic_mechanics : MonoBehaviour
             }
             else
             {
-                Debug.Log("El juego aún no se ha activado, aprieta botón start para activar el juego");
+                Questions.text = "El juego aún no se ha activado, aprieta botón verde para activar el juego";
             }
         }
-        else
+        else if(activate == true && score != 5)
         {
             Asnwers_comparation(op);
         }
@@ -127,22 +129,22 @@ public class Mathematic_mechanics : MonoBehaviour
         if (Random_problem == 1)
         {
             Questions.text = $"Realiza la siguiente operación antes de que se acabe el tiempo\n\n{Number_1} + {Number_2} = ???\n\nA. {options[0]}\nB. {options[1]}\nC. {options[2]}\nD. {options[3]}";
-            StartCoroutine(StartTimer(10));
+            StartCoroutine(StartTimer(15));
         }
         else if (Random_problem == 2)
         {
             Questions.text = $"Realiza la siguiente operación antes de que se acabe el tiempo\n\n{Number_1} - {Number_2} = ???\n\nA. {options[0]}\nB. {options[1]}\nC. {options[2]}\nD. {options[3]}";
-            StartCoroutine(StartTimer(10));
+            StartCoroutine(StartTimer(15));
         }
         else if (Random_problem == 3)
         {
             Questions.text = $"Realiza la siguiente operación antes de que se acabe el tiempo\n\n{Number_1} * {Number_2} = ???\n\nA. {options[0]}\nB. {options[1]}\nC. {options[2]}\nD. {options[3]}";
-            StartCoroutine(StartTimer(30));
+            StartCoroutine(StartTimer(40));
         }
         else if (Random_problem == 4)
         {
             Questions.text = $"Realiza la siguiente operación antes de que se acabe el tiempo\n\n{Number_1} / {Number_2} = ???\n\nA. {options[0]}\nB. {options[1]}\nC. {options[2]}\nD. {options[3]}";
-            StartCoroutine(StartTimer(40));
+            StartCoroutine(StartTimer(60));
         }
     }
 
@@ -187,7 +189,15 @@ public class Mathematic_mechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Mirror_results.text = $"Número de aciertos = {score}\nNúmero de fallos = {mistakes}";
+        if (activate == true)
+        {
+            Mirror_results.text = $"Obten un total de 5 aciertos para ganar\nNúmero de aciertos = {score}\nNúmero de fallos = {mistakes}";
+        }
+        if (score == 5)
+        {
+            activate = false;
+            Questions.text = $"Has ganado, felicitaciones";
+        }
     }
 }
 

@@ -32,7 +32,7 @@ public class Generate_bottles : MonoBehaviour
         positions_platforms = new Vector3[Generate_number];
         positions_bottles = new Vector3[Generate_number];
         positions_platforms[0] = new Vector3(Initial_positions.x, Initial_positions.y, Initial_positions.z);
-        positions_bottles[0] = new Vector3(Initial_positions.x, Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.1f, Initial_positions.z);
+        positions_bottles[0] = new Vector3(Initial_positions.x, Initial_positions.y + 0.1f, Initial_positions.z);
 
         Colors = new Color[Generate_number];
         Colors[0] = Color.red;
@@ -85,7 +85,7 @@ public class Generate_bottles : MonoBehaviour
                 Initial_positions.y + Platforms_game.transform.localScale.y / 2.0f + 0.61f,
                 Initial_positions.z);
         newpositions_bottles[0] = new Vector3(Initial_positions.x,
-                Initial_positions.y + Bottles_game.transform.localScale.y / 2.0f + 0.65f + Platforms_game.transform.localScale.y,
+                Initial_positions.y + 0.65f + Platforms_game.transform.localScale.y,
                 Initial_positions.z);
 
 
