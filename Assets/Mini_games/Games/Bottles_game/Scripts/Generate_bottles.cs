@@ -8,6 +8,7 @@ public class Generate_bottles : MonoBehaviour
 {
     public GameObject Bottles_game; // Prefab para generar los objetos botella
     public GameObject Platforms_game; // Prefab para generar los objetos plataforma
+    public GameObject button_start; // Botón que inicia el juego
     public Vector3 Initial_positions; // Se aginan las posiciones iniciales de los objetos
     [HideInInspector]
     public int Generate_number; // Numero de objetos a generar
@@ -16,14 +17,45 @@ public class Generate_bottles : MonoBehaviour
     private Color[] Colors; // Lista de colores para asignar a los objetos
     private List<int> usedColors; // Lista para rastrear los colores utilizados
     private List<int> usedColors2; // Lista para rastrear los colores utilizados
+    [HideInInspector]
     public Bottles_mechanics bottles_Mechanics;
     public Vector3 direction_generation; //Sirve para generar en una dirección los objetos dependiendo de la desición del usuario
+    public bool activate; // Variable para activar el juego de las botellas
+
+    [HideInInspector]
+    public PuntajeParaGanar instance_PuntajeParaGanar;
 
     void Start()
     {
-        Initialize_variable();
-        Generate_platforms_bottles_stay();
-        Generate_platforms_bottles_game();
+        bottles_Mechanics = FindObjectOfType<Bottles_mechanics>();
+        instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
+        activate = false;
+    }
+
+    public void activate_game(string name_button, bool rp)
+    {
+        if (activate == false && bottles_Mechanics.suma != instance_PuntajeParaGanar.Bottles_game)
+        {
+            if (button_start.GetComponent<GameObject>().name.ToLower() == name_button.ToLower())
+            {
+                activate = rp;
+                Initialize_variable();
+                Generate_platforms_bottles_stay();
+                Generate_platforms_bottles_game();
+            }
+            else
+            {
+                Debug.Log("El juego de las botellas no se ha activado");
+            }
+        }
+        else if (activate == false && bottles_Mechanics.suma == instance_PuntajeParaGanar.Bottles_game)
+        {
+            Debug.Log("Ya has completado el juego");
+        }
+        else if(activate == true)
+        {
+            Debug.Log("El juego ya fue activado");
+        }
     }
 
     public void Initialize_variable()

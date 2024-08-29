@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -21,12 +22,15 @@ public class Collision_mechanic : MonoBehaviour
 
     [HideInInspector]
     public Victory_games instance_victory_Games;
+    [HideInInspector]
+    public PuntajeParaGanar instance_PuntajeParaGanar;
 
     // Start is called before the first frame update
     void Start()
     {
         instance_generate_Buttons = FindAnyObjectByType<Generate_buttons>();
         instance_victory_Games = FindAnyObjectByType<Victory_games>();
+        instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
         mirrorScreenRenderer = instance_generate_Buttons.mirror.GetComponent<Renderer>(); // Obtén el Renderer de la pantalla
         Success = 0;
         mistakess = 0;
@@ -35,8 +39,15 @@ public class Collision_mechanic : MonoBehaviour
     }
     void Update()
     {
-        // Actualiza el texto del Mirror_results
-        Mirror_results.text = $"Obten un total de 10 aciertos para ganar\nNúmero de aciertos = {Success}\nNúmero de fallos = {mistakess}";
+        if (Success != instance_PuntajeParaGanar.Color_game && instance_generate_Buttons.activate == true)
+        {
+            Mirror_results.text = $"Obten un total de {instance_PuntajeParaGanar.Color_game} aciertos para ganar\nNúmero de aciertos = {Success}\nNúmero de fallos = {mistakess}";
+        }
+        else if (Success == instance_PuntajeParaGanar.Color_game)
+        {
+            instance_generate_Buttons.activate = false;
+            Mirror_results.text = $"Felicidades, has ganado el juego de las botellas";
+        }
     }
 
     // Método para comparar el color del botón con el de la pantalla

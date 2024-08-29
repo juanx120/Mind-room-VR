@@ -11,6 +11,8 @@ public class Victory_games : MonoBehaviour
     public Bottles_mechanics instantiate_bottles_mechanics; // Recoge los valores del juego de las botellas
     [HideInInspector]
     public Collision_mechanic instantiate_collision_mechanics; // Recoge los valores del juego de la pantalla de colores
+    [HideInInspector]
+    public PuntajeParaGanar instance_PuntajeParaGanar;
     public Toggle toggle_bottles;
     public Toggle toggle_Colores;
     public Toggle toggle_Matematics;
@@ -24,6 +26,7 @@ public class Victory_games : MonoBehaviour
         instantiate_mathematic_Mechanics = FindObjectOfType<Mathematic_mechanics>();
         instantiate_bottles_mechanics = FindObjectOfType<Bottles_mechanics>();
         instantiate_collision_mechanics = FindObjectOfType<Collision_mechanic>();
+        instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
         // Inicializa los estados anteriores de los toggles
         lastBottleToggleState = toggle_bottles.isOn;
         lastColorToggleState = toggle_Colores.isOn;
@@ -34,8 +37,8 @@ public class Victory_games : MonoBehaviour
     {
         // Solo actualiza el estado del toggle si hay un cambio en el estado
         bool currentBottleToggleState = (instantiate_bottles_mechanics.suma == instantiate_bottles_mechanics.equal_colors.Count);
-        bool currentColorToggleState = (instantiate_collision_mechanics.Success == 10); //30
-        bool currentMathToggleState = (instantiate_mathematic_Mechanics.score == 5); //20
+        bool currentColorToggleState = (instantiate_collision_mechanics.Success == instance_PuntajeParaGanar.Color_game);
+        bool currentMathToggleState = (instantiate_mathematic_Mechanics.score == instance_PuntajeParaGanar.Matematics_game);
 
         if (currentBottleToggleState != lastBottleToggleState)
         {

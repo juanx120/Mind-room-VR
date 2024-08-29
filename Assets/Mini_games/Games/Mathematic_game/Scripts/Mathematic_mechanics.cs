@@ -23,10 +23,14 @@ public class Mathematic_mechanics : MonoBehaviour
     [HideInInspector]
     public Victory_games instance_victory_Games;
 
+    [HideInInspector]
+    public PuntajeParaGanar instance_PuntajeParaGanar;
+
     // Start is called before the first frame update
     void Start()
     {
         instance_victory_Games = FindAnyObjectByType<Victory_games>();
+        instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
         activate = false;
         score = 0;
         mistakes = 0;
@@ -47,7 +51,7 @@ public class Mathematic_mechanics : MonoBehaviour
                 Questions.text = "El juego aún no se ha activado, aprieta botón verde para activar el juego";
             }
         }
-        else if (activate == true && score != 5)
+        else if (activate == true && score != instance_PuntajeParaGanar.Matematics_game)
         {
             Asnwers_comparation(op);
         }
@@ -193,9 +197,9 @@ public class Mathematic_mechanics : MonoBehaviour
     {
         if (activate == true)
         {
-            Mirror_results.text = $"Obten un total de 5 aciertos para ganar\nNúmero de aciertos = {score}\nNúmero de fallos = {mistakes}";
+            Mirror_results.text = $"Obten un total de {instance_PuntajeParaGanar.Matematics_game} aciertos para ganar\nNúmero de aciertos = {score}\nNúmero de fallos = {mistakes}";
         }
-        if (score == 5)
+        if (score == instance_PuntajeParaGanar.Matematics_game)
         {
             activate = false;
             Questions.text = $"Has ganado, felicitaciones";

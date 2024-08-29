@@ -17,17 +17,47 @@ public class Generate_buttons : MonoBehaviour
     private Color[] colours; // Crea los colores que serán utilizados
     public float timeToWait = 2.0f; // Tiempo de espera inicial del cambio de color en segundos
     private int RadomColor; // Esta variable especifica el color inicial con el que empezará el juego
-    private int time_mirror; //Esta variable servirá para hacer que la pantalla cambie los colores más rápidos 
+    private int time_mirror; //Esta variable servirá para hacer que la pantalla cambie los colores más rápidos
+    public GameObject button_start;
+    public bool activate;
+
+    [HideInInspector]
+    public PuntajeParaGanar instance_PuntajeParaGanar;
 
     // Start is called before the first frame update
     void Start()
     {
-        Initiate_variables();
-        Generate_Buttons_game();
-        // Inicia la corrutina para cambiar el color cada dos segundos
-        Initial_color();
-        StartCoroutine(change_color());
-        StartCoroutine(incrementTimeMirror());
+        instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
+        activate = false;
+    }
+
+    public void activation_gaming(string name_button)
+    {
+        if (activate == false && instance_collision_Mechanic.Success != instance_PuntajeParaGanar.Color_game)
+        {
+            if (button_start.GetComponent<GameObject>().name.ToLower() == name_button.ToLower())
+            {
+                activate = true;
+                Initiate_variables();
+                Generate_Buttons_game();
+                // Inicia la corrutina para cambiar el color cada dos segundos
+                Initial_color();
+                StartCoroutine(change_color());
+                StartCoroutine(incrementTimeMirror());
+            }
+            else
+            {
+                Debug.Log("El juego de los colores no se ha activado");
+            }
+        }
+        else if (activate == false && instance_collision_Mechanic.Success == instance_PuntajeParaGanar.Color_game)
+        {
+            Debug.Log("Ya has completado el juego");
+        }
+        else if (activate == true)
+        {
+            Debug.Log("El juego ya fue activado");
+        }
     }
 
     public void Initiate_variables() // Inicializa todas las variables necesarias para el juego
@@ -42,7 +72,7 @@ public class Generate_buttons : MonoBehaviour
         colours = new Color[Generate_number];
         colours[0] = Color.red;
         colours[1] = Color.blue;
-        colours[2] = Color.green;
+        colours[2] = Color.cyan;
         colours[3] = Color.yellow;
         colours[4] = Color.magenta;
     }
