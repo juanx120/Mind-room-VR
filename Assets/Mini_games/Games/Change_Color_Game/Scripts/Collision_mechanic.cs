@@ -42,20 +42,18 @@ public class Collision_mechanic : MonoBehaviour
     // Método para comparar el color del botón con el de la pantalla
     public void CompareButtonColor(Color colorbtn)
     {
+        StopAllCoroutines();
         Color colorscreen = mirrorScreenRenderer.material.color;
-        Debug.Log("Color del botón: " + colorbtn.ToString() + " | Color de la pantalla: " + colorscreen.ToString());
 
         if (colorbtn == colorscreen)
         {
             Success++;
-            mostrarsuma(); // Muestra la suma en la consola}
             hasInteracted = false; // Resetea la bandera después de la espera
             StartCoroutine(wait_time());
         }
         else
         {
             mistakess++;
-            mostrarresta();
             hasInteracted = false; // Resetea la bandera después de la espera
             StartCoroutine(wait_time());
         }
@@ -65,16 +63,5 @@ public class Collision_mechanic : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         timeWait = 1.0f;
-        Debug.Log("Puedes volver a presionar los botones");
-    }
-
-    public void mostrarsuma()
-    {
-        Debug.Log("El # de Aciertos es: " + Success);
-    }
-
-    public void mostrarresta()
-    {
-        Debug.Log("El # de equivocaciones es: " + mistakess);
     }
 }

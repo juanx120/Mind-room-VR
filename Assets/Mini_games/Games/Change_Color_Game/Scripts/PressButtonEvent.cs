@@ -15,15 +15,6 @@ public class PressButtonEvent : XRSimpleInteractable
     {
         // Busca una instancia de Collision_mechanic en toda la escena
         instance_collision_Mechanic = FindObjectOfType<Collision_mechanic>();
-
-        if (instance_collision_Mechanic == null)
-        {
-            Debug.LogError("No se encontró un objeto con el script Collision_mechanic en la escena.");
-        }
-        else
-        {
-            Debug.Log("Asignado la instancia con el objeto");
-        }
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -33,7 +24,6 @@ public class PressButtonEvent : XRSimpleInteractable
 
         // Obtener el color del botón y asignarlo a colorbut
         colorbut = Renderer_but.material.color;
-        Debug.Log("Botón presionado, color del botón: " + colorbut.ToString());
         instance_collision_Mechanic.hasInteracted = true;
 
         // Comparar el color inmediatamente después de presionar

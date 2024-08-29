@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class Generate_objects : MonoBehaviour
 {
+    [HideInInspector]
     public Mathematic_mechanics instantiate_mathematic_Mechanics;
     public GameObject Buttons_generate; // Prefab para generar los objetos botella
     public Vector3 Initial_positions; // Se asignan las posiciones iniciales de los objetos
@@ -21,6 +22,7 @@ public class Generate_objects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instantiate_mathematic_Mechanics = FindObjectOfType<Mathematic_mechanics>();
         Initiate_variables();
         Generate_Buttons_generate();
         Generate_button_start();

@@ -152,8 +152,6 @@ public class Mathematic_mechanics : MonoBehaviour
     // Compara la respuesta con las generadas en la pantalla
     public void Asnwers_comparation(int button_option)
     {
-        Debug.Log("Respuesta:  " + correctPosition);
-        Debug.Log("Boton R:  " + button_option);
         if (button_option == correctPosition)
         {
             score++;

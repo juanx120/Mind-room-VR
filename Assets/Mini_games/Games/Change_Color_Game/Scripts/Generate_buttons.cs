@@ -89,7 +89,6 @@ public class Generate_buttons : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f); // Espera 1 segundo
             time_mirror++; // Incrementa el cronómetro
-            Debug.LogWarning($"Segundo: {time_mirror}");
         }
     }
 

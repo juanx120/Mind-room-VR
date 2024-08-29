@@ -28,7 +28,6 @@ public class Victory_games : MonoBehaviour
         lastBottleToggleState = toggle_bottles.isOn;
         lastColorToggleState = toggle_Colores.isOn;
         lastMathToggleState = toggle_Matematics.isOn;
-        //Debug.Log($"Las variables Toggle inicializan con = {lastBottleToggleState}, {lastColorToggleState}, {lastMathToggleState}");
     }
 
     void Update()
