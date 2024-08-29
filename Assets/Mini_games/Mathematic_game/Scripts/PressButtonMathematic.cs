@@ -10,34 +10,36 @@ public class PressButtonMathematic : XRSimpleInteractable
 
     void Start()
     {
-        // Busca una instancia de Collision_mechanic en toda la escena
+        // Busca una instancia de Mathematic_mechanics en toda la escena
         instantiate_mathematic_Mechanics = FindObjectOfType<Mathematic_mechanics>();
 
         if (instantiate_mathematic_Mechanics == null)
         {
-            Debug.LogError("No se encontró un objeto con el script Collision_mechanic en la escena.");
+            Debug.LogError("No se encontró un objeto con el script Mathematic_mechanics en la escena.");
         }
         else
         {
-            Debug.Log("Asignado la instancia con el objeto");
+            Debug.Log("Asignado la instancia con el objeto Mathematic_mechanics.");
         }
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         // Obtén el GameObject que está siendo interactuado
-        GameObject pressedButton = args.interactorObject.transform.gameObject;
+        GameObject pressedButton = args.interactableObject.transform.gameObject;
 
         // Obtén el nombre del botón presionado
         string buttonName = pressedButton.name;
         Debug.Log("Botón presionado: " + buttonName);
 
-        for (int i = 0; i < instantiate_mathematic_Mechanics.names_buttons.Count - 1; i++)
+        for (int i = 0; i < instantiate_mathematic_Mechanics.names_buttons.Count; i++)
         {
-            if (instantiate_mathematic_Mechanics.names_buttons[i] == buttonName)
+            // Convertimos ambos nombres a minúsculas para evitar errores de comparación
+            if (instantiate_mathematic_Mechanics.names_buttons[i].ToLower() == buttonName.ToLower())
             {
                 instantiate_mathematic_Mechanics.activate_game(buttonName, i);
                 Debug.Log($"Nombre del botón enviado: {buttonName}\nEn la posición: {i}");
+                break; // Salimos del bucle una vez que se encuentra el botón
             }
         }
     }

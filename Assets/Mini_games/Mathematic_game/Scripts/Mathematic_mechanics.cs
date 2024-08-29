@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 
 public class Mathematic_mechanics : MonoBehaviour
 {
+    public int correctPosition;
     public List<string> names_buttons = new List<string>();
     [SerializeField]
     private bool activate; // Activa el juego
@@ -46,7 +47,7 @@ public class Mathematic_mechanics : MonoBehaviour
                 Questions.text = "El juego aún no se ha activado, aprieta botón verde para activar el juego";
             }
         }
-        else if(activate == true && score != 5)
+        else if (activate == true && score != 5)
         {
             Asnwers_comparation(op);
         }
@@ -56,7 +57,7 @@ public class Mathematic_mechanics : MonoBehaviour
     public void Questions_generate()
     {
         int Random_problem = Random.Range(1, 5); // Genera el orden de los problemas (1. Suma, 2. Resta, 3. Multiplicación, 4. División)
-        List<int> options = new List<int>(names_buttons.Count - 1); // Genera opciones para ser impresas para los botones
+        List<int> options = new List<int>(); // Inicializamos como una lista vacía
 
         int Number_1 = 0;
         int Number_2 = 0;
@@ -64,13 +65,13 @@ public class Mathematic_mechanics : MonoBehaviour
         // Configura los rangos de números aleatorios basados en el tipo de problema matemático
         if (Random_problem == 1) // Suma
         {
-            Number_1 = Random.Range(100, 10001); // Genera números entre 100 y 10,000
-            Number_2 = Random.Range(100, 10001);
+            Number_1 = Random.Range(100, 1001); // Genera números entre 100 y 1,000
+            Number_2 = Random.Range(100, 1001);
             correctAnswer = Number_1 + Number_2;
         }
         else if (Random_problem == 2) // Resta
         {
-            Number_1 = Random.Range(1000, 10001); // Genera números entre 1,000 y 10,000
+            Number_1 = Random.Range(1000, 1001); // Genera números entre 1,000 y 1,000
             Number_2 = Random.Range(100, Number_1); // Asegura que Number_2 sea menor o igual a Number_1 para evitar resultados negativos
             correctAnswer = Number_1 - Number_2;
         }
@@ -88,13 +89,13 @@ public class Mathematic_mechanics : MonoBehaviour
         }
 
         // Llena la lista de opciones con números aleatorios
-        for (int j = 0; j < options.Count; j++)
+        for (int j = 0; j < names_buttons.Count - 1; j++)
         {
             options.Add(correctAnswer); // Inicializa todas las opciones con la respuesta correcta
         }
 
         // Reemplaza una de las opciones con una respuesta incorrecta cercana
-        int correctPosition = Random.Range(0, options.Count); // Escoge una posición aleatoria para la respuesta correcta
+        correctPosition = Random.Range(0, options.Count); // Escoge una posición aleatoria para la respuesta correcta
         options[correctPosition] = correctAnswer;
 
         // Llena las demás posiciones con valores cercanos al correctAnswer
@@ -117,13 +118,13 @@ public class Mathematic_mechanics : MonoBehaviour
         }
 
         // Mezcla las opciones para que la respuesta correcta no siempre esté en la misma posición
-        for (int j = 0; j < options.Count; j++)
+        /*for (int j = 0; j < options.Count; j++)
         {
             int temp = options[j];
             int randomIndex = Random.Range(0, options.Count);
             options[j] = options[randomIndex];
             options[randomIndex] = temp;
-        }
+        }*/
 
         // Configura el texto de la pregunta y opciones
         if (Random_problem == 1)
@@ -151,7 +152,9 @@ public class Mathematic_mechanics : MonoBehaviour
     // Compara la respuesta con las generadas en la pantalla
     public void Asnwers_comparation(int button_option)
     {
-        if (button_option == correctAnswer)
+        Debug.Log("Respuesta:  " + correctPosition);
+        Debug.Log("Boton R:  " + button_option);
+        if (button_option == correctPosition)
         {
             score++;
             Debug.Log("Respuesta correcta!");
@@ -167,6 +170,7 @@ public class Mathematic_mechanics : MonoBehaviour
 
     public void Change_text()
     {
+        StopAllCoroutines();
         Questions_generate(); // Genera una nueva pregunta
     }
 
@@ -200,4 +204,3 @@ public class Mathematic_mechanics : MonoBehaviour
         }
     }
 }
-
