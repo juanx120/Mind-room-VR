@@ -10,7 +10,7 @@ public class Bottles_mechanics : MonoBehaviour
     public List<GameObject> Platforms_mec_stay = new List<GameObject>(); // Variable para guardar las botellas de referencia
     public List<GameObject> Platforms_mec_Game = new List<GameObject>(); // Variable para guardar las botellas con las que el usuario interactuará
     public List<int> equal_colors = new List<int>(); // Variable para comparar los colores si son iguales
-    [HideInInspector]
+    //[HideInInspector]
     public int suma = 0;
 
     public TextMeshProUGUI Bottles_results;
@@ -26,6 +26,7 @@ public class Bottles_mechanics : MonoBehaviour
         generate_Bottles = FindObjectOfType<Generate_bottles>();
         instance_victory_Games = FindAnyObjectByType<Victory_games>();
         instance_PuntajeParaGanar = FindAnyObjectByType<PuntajeParaGanar>();
+        Debug.Log($"Verificación variable botellas = {instance_PuntajeParaGanar.Bottles_game}");
     }
     void Awake()
     {
@@ -53,16 +54,17 @@ public class Bottles_mechanics : MonoBehaviour
         {
             Compare_colors();
             sumando();
-        }
 
-        if (suma != instance_PuntajeParaGanar.Bottles_game && generate_Bottles.activate == true)
-        {
-            Bottles_results.text = $"Obten un total de {instance_PuntajeParaGanar.Bottles_game} aciertos para ganar\nNúmero de Aciertos = {suma}";
-        }
-        else if(suma == instance_PuntajeParaGanar.Bottles_game)
-        {
-            generate_Bottles.activate = false;
-            Bottles_results.text = $"Felicidades, has ganado el juego de las botellas";
+            if (suma == instance_PuntajeParaGanar.Bottles_game) // Suma == 5
+            {
+                generate_Bottles.activate = false;
+                Bottles_results.text = $"Felicidades, has ganado el juego de las botellas";
+            }
+
+            else/* if (suma != instance_PuntajeParaGanar.Bottles_game && generate_Bottles.activate == true) */// suma != 5
+            {
+                Bottles_results.text = $"Obten un total de {instance_PuntajeParaGanar.Bottles_game} aciertos para ganar\nNúmero de Aciertos = {suma}";
+            }
         }
     }
 

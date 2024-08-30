@@ -16,5 +16,6 @@ public class PuntajeParaGanar : MonoBehaviour
     {
         instantiate_bottles_mechanics = FindAnyObjectByType<Bottles_mechanics>();
         Bottles_game = instantiate_bottles_mechanics.equal_colors.Count;
+        //Debug.Log($"EL valor para ganar el juego de botellas es = {Bottles_game}\n{instantiate_bottles_mechanics.equal_colors.Count}");
     }
 }

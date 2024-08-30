@@ -46,7 +46,7 @@ public class Collision_mechanic : MonoBehaviour
         else if (Success == instance_PuntajeParaGanar.Color_game)
         {
             instance_generate_Buttons.activate = false;
-            Mirror_results.text = $"Felicidades, has ganado el juego de las botellas";
+            Mirror_results.text = $"Felicidades, has ganado el juego de los colores";
         }
     }
 

@@ -35,7 +35,7 @@ public class Generate_buttons : MonoBehaviour
     {
         if (activate == false && instance_collision_Mechanic.Success != instance_PuntajeParaGanar.Color_game)
         {
-            if (button_start.GetComponent<GameObject>().name.ToLower() == name_button.ToLower())
+            if (button_start.name.ToLower() == name_button.ToLower())
             {
                 activate = true;
                 Initiate_variables();
@@ -141,6 +141,12 @@ public class Generate_buttons : MonoBehaviour
         if (instance_collision_Mechanic.Success == 15)
         {
             timeToWait = 0.5f;
+        }
+
+        if (instance_collision_Mechanic.Success == instance_PuntajeParaGanar.Color_game)
+        {
+            StopAllCoroutines();
+            mirror_renderer.material.color = Color.white;
         }
     }
 }

@@ -21,14 +21,15 @@ public class PushButtonInstructions : XRSimpleInteractable
 
         // Obtén el nombre del botón presionado
         string buttonName = pressedButton.name;
-        //Debug.Log("Botón presionado: " + buttonName);
+        Debug.Log("Botón presionado: " + buttonName);
 
-        for (int i = 0; i < instance_activate_instructions.buttons.Count; i++)
+        for (int i = 0; i < instance_activate_instructions.buttons.Length; i++)
         {
             // Convertimos ambos nombres a minúsculas para evitar errores de comparación
             if (instance_activate_instructions.names_buttons[i].ToLower() == buttonName.ToLower())
             {
                 instance_activate_instructions.show_instructions(i);
+                Debug.Log("Posición enviada: " + i);
                 break; // Salimos del bucle una vez que se encuentra el botón
             }
         }

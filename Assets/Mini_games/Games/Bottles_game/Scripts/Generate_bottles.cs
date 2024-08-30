@@ -36,9 +36,9 @@ public class Generate_bottles : MonoBehaviour
     {
         if (activate == false && bottles_Mechanics.suma != instance_PuntajeParaGanar.Bottles_game)
         {
-            if (button_start.GetComponent<GameObject>().name.ToLower() == name_button.ToLower())
+            if (button_start.name.ToLower() == name_button.ToLower())
             {
-                activate = rp;
+                activate = true;
                 Initialize_variable();
                 Generate_platforms_bottles_stay();
                 Generate_platforms_bottles_game();
@@ -48,13 +48,9 @@ public class Generate_bottles : MonoBehaviour
                 Debug.Log("El juego de las botellas no se ha activado");
             }
         }
-        else if (activate == false && bottles_Mechanics.suma == instance_PuntajeParaGanar.Bottles_game)
+        else
         {
             Debug.Log("Ya has completado el juego");
-        }
-        else if(activate == true)
-        {
-            Debug.Log("El juego ya fue activado");
         }
     }
 

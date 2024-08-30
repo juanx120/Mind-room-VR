@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class Activate_instructions : MonoBehaviour
 {
-    public List<GameObject> Monitors_Games; // Se agregan a la lista la cantidad de pantallas que tendrán las instrucciones
+    public GameObject[] Monitors_Games; // Se agregan a la lista la cantidad de pantallas que tendrán las instrucciones
     [HideInInspector]
     public string[] names_monitors;
-    public List<GameObject> buttons;
+    public GameObject[] buttons;
     [HideInInspector]
     public string[] names_buttons;
     public GameObject canvas_HUB; // Hub que se verá cuando el jugador presione alguno de los botones
@@ -19,9 +21,9 @@ public class Activate_instructions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        names_monitors = new string[Monitors_Games.Count];
-        names_buttons = new string[buttons.Count];
-        for (int i = 0; i < Monitors_Games.Count; i++)
+        names_monitors = new string[Monitors_Games.Length];
+        names_buttons = new string[buttons.Length];
+        for (int i = 0; i < Monitors_Games.Length; i++)
         {
             names_monitors[i] = Monitors_Games[i].name;
             names_buttons[i] = buttons[i].name;
@@ -31,6 +33,7 @@ public class Activate_instructions : MonoBehaviour
 
     public void show_instructions(int op)
     {
+        Stopped_corroutines();
         GameObject monitor_actual = Monitors_Games[op];
         VideoPlayer videoPlayer_actual = monitor_actual.transform.GetChild(3).GetComponent<VideoPlayer>();
 
@@ -43,39 +46,19 @@ public class Activate_instructions : MonoBehaviour
             Debug.Log("VideoPlayer Asignado correctamente.");
             videoPlayer_actual.clip = video_Doctor;
             videoPlayer_actual.Play();
-            GameObject image_cientific = canvas_HUB.transform.GetChild(0).GetComponent<GameObject>(); // Accede al objeto imagen del canvas para activar la imagen del profesor en el HUB
-            GameObject txt_instruction = canvas_HUB.transform.GetChild(op + 1).GetComponent<GameObject>(); // Accede al txt dependiendo del botón que se haya oprimido
 
-            image_cientific.SetActive(true);
-            txt_instruction.SetActive(true);
+            // Accede al objeto imagen del canvas para activar la imagen del profesor en el HUB
+            RawImage image_cientific = canvas_HUB.transform.GetChild(0).GetComponent<RawImage>();
+            // Accede al txt dependiendo del botón que se haya oprimido
+            TextMeshProUGUI txt_instruction = canvas_HUB.transform.GetChild(op + 1).GetComponent<TextMeshProUGUI>();
+
+            // Activar o desactivar el GameObject que contiene el componente
+            image_cientific.gameObject.SetActive(true);
+            txt_instruction.gameObject.SetActive(true);
 
             // Iniciar la corrutina para cambiar el video después de 20 segundos
-            StartCoroutine(ChangeVideoAfterDelay(videoPlayer_actual, 20, op + 1));
+            StartCoroutine(ChangeVideoAfterDelay(videoPlayer_actual, 10, op + 1));
         }
-        /*
-        for (int i = 0; i < Monitors_Games.Count; i++)
-        {
-            if (names_buttons[i].ToLower() == Button_name.ToLower())
-            {
-                GameObject monitor_actual = Monitors_Games[op];
-                VideoPlayer videoPlayer_actual = monitor_actual.transform.GetChild(3).GetComponent<VideoPlayer>();
-
-                if (videoPlayer_actual == null)
-                {
-                    Debug.LogWarning("No se encontró el Video player del monitor.");
-                }
-                else
-                {
-                    Debug.Log("VideoPlayer Asignado correctamente.");
-                    videoPlayer_actual.clip = video_Doctor;
-                    videoPlayer_actual.Play();
-
-                    // Iniciar la corrutina para cambiar el video después de 20 segundos
-                    StartCoroutine(ChangeVideoAfterDelay(videoPlayer_actual, 20));
-                }
-            }
-        }
-        */
     }
 
     private void Stopped_corroutines()
@@ -86,15 +69,17 @@ public class Activate_instructions : MonoBehaviour
     // Corrutina para cambiar el video después de un retraso
     private IEnumerator ChangeVideoAfterDelay(VideoPlayer videoPlayer, int delaySeconds, int Object_canvas)
     {
-        yield return new WaitForSeconds(delaySeconds); // Aquí espera el tiempo determinado antes de cambiar al otro video nuevamente
+        yield return new WaitForSeconds(delaySeconds); // Espera el tiempo determinado antes de cambiar al otro video
 
         // Cambiar el video al 'video_Mirror_broken'
         videoPlayer.clip = video_Mirror_broken;
         videoPlayer.Play();
-        canvas_HUB.transform.GetChild(0).GetComponent<GameObject>().SetActive(false); // Desaparece la imagen del cientifico
-        canvas_HUB.transform.GetChild(Object_canvas).GetComponent<GameObject>().SetActive(false); // Desaparece el texto de las instrucciones
+
+        // Desactivar los GameObjects de los componentes
+        canvas_HUB.transform.GetChild(0).gameObject.SetActive(false); // Desaparece la imagen del cientifico
+        canvas_HUB.transform.GetChild(Object_canvas).gameObject.SetActive(false); // Desaparece el texto de las instrucciones
+
         Debug.Log("Video cambiado a video_Mirror_broken.");
-        Stopped_corroutines();
     }
 
     // Update is called once per frame
@@ -103,4 +88,3 @@ public class Activate_instructions : MonoBehaviour
 
     }
 }
-

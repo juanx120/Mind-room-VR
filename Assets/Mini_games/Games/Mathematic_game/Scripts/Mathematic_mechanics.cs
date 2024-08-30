@@ -203,6 +203,8 @@ public class Mathematic_mechanics : MonoBehaviour
         {
             activate = false;
             Questions.text = $"Has ganado, felicitaciones";
+            Mirror_results.text = $"Has ganado, felicitaciones";
+            TimerText.text = $"Has ganado, felicitaciones";
         }
     }
 }
