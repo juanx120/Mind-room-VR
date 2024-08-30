@@ -182,7 +182,7 @@ public class Mathematic_mechanics : MonoBehaviour
         int timeRemaining = seconds;
         while (timeRemaining > 0)
         {
-            TimerText.text = "Tiempo restante: " + timeRemaining + "seconds";
+            TimerText.text = $"Tiempo restante: {timeRemaining} seconds";
             yield return new WaitForSeconds(1);
             timeRemaining--;
         }

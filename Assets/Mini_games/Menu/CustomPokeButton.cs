@@ -1,35 +1,85 @@
+using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
 using Unity.XR.CoreUtils.Bindings;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
-public class CustomPokeButton : XRPokeFollowAffordance
+public class CustomPokeButton : MonoBehaviour
 {
-    /*// Variable para contar cuántas veces se ha presionado el botón
-    private int pressCount = 0;
+    public GameObject grille_start; // La reja que se abrirá al iniciar el juego
+    public GameObject TV_principal; // Este objeto sirve para mostrar el video en la pantalla grande
+    public GameObject Canvas_HUB; // Servirá para acceder a objetos especificos del Hub
+    public TextMeshProUGUI[] text_canvas;
+    private bool activate_coroutine;
 
-    /// <summary>
-    /// Inicializa la configuración personalizada y realiza las suscripciones necesarias.
-    /// </summary>
-    protected override void Start()
+    void Start()
     {
-        base.Start(); // Llama al método Start de la clase base para mantener la configuración original
-
-        // Suscripción a un método personalizado en caso de que el botón sea presionado
-        m_BindingsGroup.AddBinding(m_TransformTweenableVariable.Subscribe(OnTransformTweenableVariableUpdatedCustom));
+        activate_coroutine = false;
+        text_canvas = new TextMeshProUGUI[3];
+        for (int i = 0; i < 3; i++)
+        {
+            text_canvas[i] = Canvas_HUB.transform.GetChild(i + 5).gameObject.GetComponent<TextMeshProUGUI>();
+        }
     }
 
-    /// <summary>
-    /// Método personalizado para manejar el evento de actualización de la variable tweenable.
-    /// Este método incrementará la variable pressCount y la mostrará en la consola de Unity.
-    /// </summary>
-    private void OnTransformTweenableVariableUpdatedCustom(Vector3 position)
+    public void Start_aplication()
     {
-        // Llama al método base para manejar la posición del botón
-        base.OnTransformTweenableVariableUpdated(position);
+        grille_start.SetActive(false);
+        StartCoroutine(time_wait_TV(6));
+    }
 
-        // Lógica adicional: incrementar el contador y mostrarlo en la consola
-        pressCount++;
-        Debug.Log($"Botón presionado {pressCount} veces.");
-    }*/
+    IEnumerator time_wait_TV(int seconds)
+    {
+        int timeRemaining = seconds;
+        while (timeRemaining > 0)
+        {
+            Debug.LogWarning("Tiempo restante: " + timeRemaining + " seconds");
+            yield return new WaitForSeconds(1);
+            timeRemaining--;
+        }
+
+        Debug.Log("¡Tiempo agotado!");
+
+        RawImage Video_presentation_cientific = Canvas_HUB.transform.GetChild(4).GetComponent<RawImage>();
+        //RawImage Video_TV_Cientific = TV_principal.transform.GetChild(1).GetComponent<RawImage>();
+        Video_presentation_cientific.gameObject.SetActive(true);
+        TV_principal.SetActive(true);
+
+        for (int i = 0; i < text_canvas.Length; i++)
+        {
+            if (i == 0)
+            {
+                text_canvas[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                yield return new WaitForSeconds(10);
+                text_canvas[i - 1].gameObject.SetActive(false);
+                text_canvas[i].gameObject.SetActive(true);
+            }
+        }
+
+        yield return new WaitForSeconds(10);
+        text_canvas[2].gameObject.SetActive(false);
+        Video_presentation_cientific.gameObject.SetActive(false);
+        TV_principal.SetActive(false);
+        activate_coroutine = true;
+
+    }
+
+    public void Exit_aplication()
+    {
+        Application.Quit();
+    }
+
+    void Update()
+    {
+        if (activate_coroutine == true)
+        {
+            StopAllCoroutines();
+        }
+    }
 }
 
