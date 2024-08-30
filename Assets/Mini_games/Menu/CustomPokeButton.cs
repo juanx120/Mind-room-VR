@@ -11,12 +11,18 @@ public class CustomPokeButton : MonoBehaviour
     public GameObject grille_start; // La reja que se abrirá al iniciar el juego
     public GameObject TV_principal; // Este objeto sirve para mostrar el video en la pantalla grande
     public GameObject Canvas_HUB; // Servirá para acceder a objetos especificos del Hub
+    public GameObject Puerta_principal;
     public TextMeshProUGUI[] text_canvas;
     private bool activate_coroutine;
+
+    private Animator anim_Door_left;
+    private Animator anim_Door_right;
 
     void Start()
     {
         activate_coroutine = false;
+        anim_Door_left = Puerta_principal.transform.GetChild(0).GetComponent<Animator>();
+        anim_Door_right = Puerta_principal.transform.GetChild(1).GetComponent<Animator>();
         text_canvas = new TextMeshProUGUI[3];
         for (int i = 0; i < 3; i++)
         {
@@ -26,7 +32,8 @@ public class CustomPokeButton : MonoBehaviour
 
     public void Start_aplication()
     {
-        grille_start.SetActive(false);
+        anim_Door_left.Play("animation_dooor_left");
+        anim_Door_right.Play("animation_dooor_Right");
         StartCoroutine(time_wait_TV(6));
     }
 
