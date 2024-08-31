@@ -110,10 +110,10 @@ public class Generate_bottles : MonoBehaviour
         Vector3[] newpositions_bottles = new Vector3[Generate_number];
 
         newpositions_platforms[0] = new Vector3(Initial_positions.x,
-                Initial_positions.y + Platforms_game.transform.localScale.y / 2.0f + 0.61f,
+                Initial_positions.y + Platforms_game.transform.localScale.y / 2.0f + 0.81f,
                 Initial_positions.z);
         newpositions_bottles[0] = new Vector3(Initial_positions.x,
-                Initial_positions.y + 0.65f + Platforms_game.transform.localScale.y,
+                Initial_positions.y + 0.85f + Platforms_game.transform.localScale.y,
                 Initial_positions.z);
 
 

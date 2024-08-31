@@ -136,11 +136,11 @@ public class Generate_buttons : MonoBehaviour
         }
         if (instance_collision_Mechanic.Success == 10)
         {
-            timeToWait = 1.0f;
+            timeToWait = 1.25f;
         }
         if (instance_collision_Mechanic.Success == 15)
         {
-            timeToWait = 0.5f;
+            timeToWait = 1.0f;
         }
 
         if (instance_collision_Mechanic.Success == instance_PuntajeParaGanar.Color_game)

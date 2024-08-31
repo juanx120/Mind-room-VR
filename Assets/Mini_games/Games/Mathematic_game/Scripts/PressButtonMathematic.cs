@@ -7,11 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class PressButtonMathematic : XRSimpleInteractable
 {
     private Mathematic_mechanics instantiate_mathematic_Mechanics;
+    private Sonido instance_sonido;
 
     void Start()
     {
         // Busca una instancia de Mathematic_mechanics en toda la escena
         instantiate_mathematic_Mechanics = FindObjectOfType<Mathematic_mechanics>();
+        instance_sonido = FindObjectOfType<Sonido>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -21,6 +23,7 @@ public class PressButtonMathematic : XRSimpleInteractable
 
         // Obtén el nombre del botón presionado
         string buttonName = pressedButton.name;
+        instance_sonido.reproduct_effect(0);
 
         for (int i = 0; i < instantiate_mathematic_Mechanics.names_buttons.Count; i++)
         {

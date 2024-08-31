@@ -10,11 +10,13 @@ public class PressButtonEvent : XRSimpleInteractable
     public Color colorbut;
     public Renderer Renderer_but;
     public Collision_mechanic instance_collision_Mechanic;
+    private Sonido instance_sonido;
 
     void Start()
     {
         // Busca una instancia de Collision_mechanic en toda la escena
         instance_collision_Mechanic = FindObjectOfType<Collision_mechanic>();
+        instance_sonido = FindObjectOfType<Sonido>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -25,6 +27,7 @@ public class PressButtonEvent : XRSimpleInteractable
         // Obtener el color del botón y asignarlo a colorbut
         colorbut = Renderer_but.material.color;
         instance_collision_Mechanic.hasInteracted = true;
+        instance_sonido.reproduct_effect(0);
 
         // Comparar el color inmediatamente después de presionar
         if (instance_collision_Mechanic.timeWait >= 1.0f && instance_collision_Mechanic.hasInteracted != false) // Revisa la bandera antes de ejecutar la función

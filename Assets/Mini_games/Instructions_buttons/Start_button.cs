@@ -8,12 +8,15 @@ public class Start_button : XRSimpleInteractable
 {
     private Generate_bottles instance_generate_bottles;
     private Generate_buttons instance_generate_buttons;
+    private Sonido instance_sonido;
+
 
     void Start()
     {
         // Busca una instancia de Generate_bottles y Generate_buttons en toda la escena
         instance_generate_bottles = FindObjectOfType<Generate_bottles>();
         instance_generate_buttons = FindObjectOfType<Generate_buttons>();
+        instance_sonido = FindObjectOfType<Sonido>();
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -31,6 +34,7 @@ public class Start_button : XRSimpleInteractable
         // Obtén el nombre del botón presionado
         string buttonName = pressedButton.name;
         bool activation = true;
+        instance_sonido.reproduct_effect(0);
 
         // Verifica si el botón pertenece a Generate_bottles
         if (instance_generate_bottles.button_start != null &&
